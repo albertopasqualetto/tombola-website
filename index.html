@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tombola</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <main class="main-content">
+            <div id="bingoContainer" class="bingo-container"></div>
+        </main>
+        <aside class="sidebar">
+            <button onclick="clearAll()" class="btn btn--outline btn--full-width" style="margin-bottom: var(--space-16);">Reset</button>
+            <div class="history-section">
+                <h2>Storico Estrazioni</h2>
+                <div class="history-list" id="historyList"></div>
+            </div>
+            <h2>Vincite</h2>
+            <div class="wins-list" id="winsList"></div>
+            <div class="add-custom-win win-item">
+                <input type="text" id="customWinInput" placeholder="Vincita custom" class="form-control">
+                <button onclick="addCustomWin()" class="btn btn--secondary btn--sm">+</button>
+            </div>
+        </aside>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
