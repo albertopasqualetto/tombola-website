@@ -410,6 +410,12 @@ function init() {
     // Valid hex color, apply it
     const mainColor = `#${colorParam}`;
     document.documentElement.style.setProperty('--cell-extracted-bg', mainColor);
+    
+    // Update theme-color meta tag
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeColorMeta) {
+      themeColorMeta.setAttribute('content', mainColor);
+    }
   }
   
   // Try to load state from URL first (priority), then localStorage
