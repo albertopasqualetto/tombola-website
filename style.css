@@ -736,29 +736,29 @@ select.form-control {
   --cell-unextracted-border: #2c3e50;
   --cell-unextracted-text: #2c3e50;
   --cell-unextracted-hover-bg: color-mix(in srgb, var(--cell-unextracted-bg) 95%, var(--cell-extracted-bg));
-  
+
   --cell-extracted-bg: #e74c3c;
   --cell-extracted-border: color-mix(in srgb, var(--cell-extracted-bg) 80%, black);
   --cell-extracted-text: var(--color-white);
   --cell-extracted-hover-bg: color-mix(in srgb, var(--cell-extracted-bg) 80%, white);
-  
+
   --card-bg: var(--color-white);
   --card-border: #34495e;
   --card-shadow: rgba(0, 0, 0, 0.1);
-  
+
   --page-bg: #bdc3c7;
-  
+
   /* Additional UI colors */
   --scrollbar-track-bg: #f1f1f1;
   --scrollbar-thumb-bg: #888;
   --scrollbar-thumb-hover-bg: #555;
-  
+
   --history-item-bg: var(--cell-unextracted-hover-bg);
   --history-item-hover-bg: var(--cell-extracted-bg);
-  
+
   --win-item-bg: #f8f9fa;
   --win-item-hover-bg: #e9ecef;
-  
+
   --placeholder-color: #999;
   --delete-btn-hover-bg: rgba(231, 76, 60, 0.1);
 }
@@ -872,35 +872,35 @@ body {
   body {
     padding: 3px;
   }
-  
+
   .app-layout {
     gap: 5px;
     height: auto;
     flex-direction: column;
   }
-  
+
   .main-content {
     height: auto;
   }
-  
+
   .bingo-container {
     gap: 4px;
     height: auto;
     grid-template-rows: auto;
     width: 100%;
   }
-  
+
   .bingo-card {
     padding: 3px;
     height: auto;
   }
-  
+
   .bingo-grid {
     gap: 1px;
     font-size: 8px;
     height: auto;
   }
-  
+
   .sidebar {
     width: 100% !important;
     max-width: 100%;
@@ -908,21 +908,21 @@ body {
     height: auto;
     max-height: none;
   }
-  
+
   .sidebar h2 {
     font-size: 14px;
     margin-bottom: 8px;
   }
-  
+
   .win-item {
     padding: 3px;
     gap: 4px;
   }
-  
+
   .win-item label {
     font-size: 11px;
   }
-  
+
   .win-item input[type="checkbox"] {
     width: 12px;
     height: 12px;
@@ -937,33 +937,33 @@ body {
     min-height: 100vh;
     padding: 5px;
   }
-  
+
   .app-layout {
     flex-direction: column;
     height: auto;
   }
-  
+
   .main-content {
     height: auto;
   }
-  
+
   .bingo-container {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     height: auto;
     width: 100%;
   }
-  
+
   .bingo-grid {
     font-size: 14px;
     height: auto;
   }
-  
+
   .bingo-card {
     padding: 8px;
     height: auto;
   }
-  
+
   .sidebar {
     width: 100% !important;
     max-width: 100%;

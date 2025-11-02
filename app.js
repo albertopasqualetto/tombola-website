@@ -72,11 +72,11 @@ let checkedWins = new Set();
 // Card 6: 66-70, 76-80, 86-90
 function generateAllCards() {
   const cards = Array.from({ length: TOTAL_CARDS }, () => []);
-  
+
   // Distribute numbers in the tombola pattern
   // Numbers are distributed in groups of 10 across 2 cards at a time
   let numberIndex = 1;
-  
+
   for (let blockRow = 0; blockRow < 3; blockRow++) { // 3 blocks of 2 cards
     for (let cardRow = 0; cardRow < ROWS_PER_CARD; cardRow++) { // 3 rows per card
       for (let cardInBlock = 0; cardInBlock < 2; cardInBlock++) { // 2 cards per block
@@ -87,7 +87,7 @@ function generateAllCards() {
       }
     }
   }
-  
+
   return cards;
 }
 
@@ -98,7 +98,7 @@ function encodeState(extracted, checked, winsList) {
     wins: Array.from(checked),
     'wins-list': winsList
   };
-  
+
   return encodeURIComponent(JSON.stringify(state));
 }
 
@@ -109,22 +109,22 @@ function decodeState(urlParams) {
     checkedWins: new Set(),
     winsList: []
   };
-  
+
   try {
     const stateParam = urlParams.get('state');
     if (stateParam) {
       const decoded = JSON.parse(decodeURIComponent(stateParam));
-      
+
       if (decoded.extracted) {
         const history = decoded.extracted.filter(n => n >= 1 && n <= 90);
         state.extractedNumbers = new Set(history);
         state.extractionHistory = history;
       }
-      
+
       if (decoded.wins) {
         state.checkedWins = new Set(decoded.wins);
       }
-      
+
       if (decoded['wins-list']) {
         state.winsList = decoded['wins-list'];
       }
@@ -132,7 +132,7 @@ function decodeState(urlParams) {
   } catch (e) {
     console.error('Error decoding state from URL:', e);
   }
-  
+
   return state;
 }
 
@@ -189,10 +189,10 @@ function updateState() {
 function renderHistory() {
   const historyList = document.getElementById('historyList');
   historyList.innerHTML = '';
-  
+
   // Display in reverse order (most recent first)
   const reversedHistory = [...extractionHistory].reverse();
-  
+
   reversedHistory.forEach((number, index) => {
     const historyItem = document.createElement('div');
     historyItem.className = 'history-item';
@@ -205,28 +205,28 @@ function renderHistory() {
 function renderWins() {
   const winsList = document.getElementById('winsList');
   winsList.innerHTML = '';
-  
+
   wins.forEach(win => {
     const winItem = document.createElement('div');
     winItem.className = 'win-item';
-    
+
     const winId = win;
     const winName = win;
     const isCustom = !predefinedWins.includes(win);
-    
+
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.id = `win-${winId}`;
     checkbox.checked = checkedWins.has(winId);
     checkbox.addEventListener('change', () => toggleWin(winId));
-    
+
     const label = document.createElement('label');
     label.htmlFor = `win-${winId}`;
     label.textContent = winName;
-    
+
     winItem.appendChild(checkbox);
     winItem.appendChild(label);
-    
+
     // Add delete button for custom wins
     if (isCustom) {
       const deleteBtn = document.createElement('button');
@@ -236,7 +236,7 @@ function renderWins() {
       deleteBtn.addEventListener('click', () => deleteWin(winId));
       winItem.appendChild(deleteBtn);
     }
-    
+
     winsList.appendChild(winItem);
   });
 }
@@ -246,10 +246,10 @@ function createConfetti() {
   const confettiContainer = document.createElement('div');
   confettiContainer.className = 'confetti-container';
   document.body.appendChild(confettiContainer);
-  
+
   const colors = ['#e74c3c', '#3498db', '#f39c12', '#2ecc71', '#9b59b6', '#e67e22'];
   const confettiCount = 300;
-  
+
   for (let i = 0; i < confettiCount; i++) {
     const confetti = document.createElement('div');
     confetti.className = 'confetti';
@@ -257,14 +257,14 @@ function createConfetti() {
     confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
     confetti.style.animationDelay = Math.random() * 0.5 + 's';
     confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-    
+
     // Random rotation direction
     const rotationDirection = Math.random() > 0.5 ? 1 : -1;
     confetti.style.setProperty('--rotation-direction', rotationDirection);
-    
+
     confettiContainer.appendChild(confetti);
   }
-  
+
   // Remove confetti after animation
   setTimeout(() => {
     confettiContainer.remove();
@@ -290,22 +290,22 @@ function toggleWin(winId) {
 function addCustomWin() {
   const input = document.getElementById('customWinInput');
   const name = input.value.trim();
-  
+
   if (name === '') {
     alert('Please enter a win name');
     return;
   }
-  
+
   // Check if custom win already exists
   if (wins.includes(name)) {
     alert('This win already exists');
     return;
   }
-  
+
   // Add as simple string (name only)
   wins.push(name);
   input.value = '';
-  
+
   updateState();
   renderWins();
 }
@@ -314,7 +314,7 @@ function addCustomWin() {
 function deleteWin(winId) {
   wins = wins.filter(w => w !== winId);
   checkedWins.delete(winId);
-  
+
   updateState();
   renderWins();
 }
@@ -324,22 +324,22 @@ function clearAll() {
   if (confirm('Clear all extracted numbers and wins?')) {
     // Clear all extracted numbers
     extractedNumbers.clear();
-    
+
     // Clear extraction history
     extractionHistory = [];
-    
+
     // Clear all checked wins
     checkedWins.clear();
-    
+
     // Remove all custom wins, keep only predefined wins
     wins = [...predefinedWins];
-    
+
     // Clear localStorage
     clearLocalStorage();
-    
+
     // Clear URL parameter to reflect empty state
     window.history.replaceState({}, '', window.location.pathname);
-    
+
     // Re-render everything
     renderAllCards();
     renderHistory();
@@ -351,27 +351,27 @@ function clearAll() {
 function renderAllCards() {
   const container = document.getElementById('bingoContainer');
   container.innerHTML = '';
-  
+
   allNumbers.forEach((card, cardIndex) => {
     const cardDiv = document.createElement('div');
     cardDiv.className = 'bingo-card';
-    
+
     const gridDiv = document.createElement('div');
     gridDiv.className = 'bingo-grid';
-    
+
     card.forEach(number => {
       const cell = document.createElement('div');
       cell.className = 'bingo-cell';
       cell.textContent = number;
-      
+
       if (extractedNumbers.has(number)) {
         cell.classList.add('extracted');
       }
-      
+
       cell.addEventListener('click', () => toggleNumber(number));
       gridDiv.appendChild(cell);
     });
-    
+
     cardDiv.appendChild(gridDiv);
     container.appendChild(cardDiv);
   });
@@ -391,7 +391,7 @@ function toggleNumber(number) {
     // Add to history
     extractionHistory.push(number);
   }
-  
+
   // Update UI and state
   renderAllCards();
   renderHistory();
@@ -402,7 +402,7 @@ function toggleNumber(number) {
 function init() {
   // Generate all cards with numbers 1-90
   allNumbers = generateAllCards();
-  
+
   // Check for color parameter in URL and apply it
   const urlParams = new URLSearchParams(window.location.search);
   const colorParam = urlParams.get('color');
@@ -410,17 +410,17 @@ function init() {
     // Valid hex color, apply it
     const mainColor = `#${colorParam}`;
     document.documentElement.style.setProperty('--cell-extracted-bg', mainColor);
-    
+
     // Update theme-color meta tag
     const themeColorMeta = document.querySelector('meta[name="theme-color"]');
     if (themeColorMeta) {
       themeColorMeta.setAttribute('content', mainColor);
     }
   }
-  
+
   // Try to load state from URL first (priority), then localStorage
   let state = null;
-  
+
   // Check if URL has state parameter
   if (urlParams.has('state')) {
     // Load from URL (user shared a link or refreshed with params)
@@ -429,24 +429,24 @@ function init() {
     // Try to load from localStorage
     state = loadFromLocalStorage();
   }
-  
+
   // Apply loaded state or use defaults
   if (state) {
     extractedNumbers = state.extractedNumbers;
     checkedWins = state.checkedWins;
     extractionHistory = state.extractionHistory || [];
-    
+
     // Load wins from state
     if (state.winsList && state.winsList.length > 0) {
       wins = state.winsList;
     }
-    
+
     // If we loaded from localStorage, update URL to reflect state
     if (!urlParams.has('state')) {
       updateURL();
     }
   }
-  
+
   // Render all cards, history, and wins
   renderAllCards();
   renderHistory();
