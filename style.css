@@ -788,7 +788,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3em;
+  font-size: 5em;
   font-weight: bold;
   cursor: pointer;
   user-select: none;

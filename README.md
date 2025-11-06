@@ -2,6 +2,8 @@
 
 A simple web-based Italian Tombola (Bingo) game with win tracking functionality.
 
+This code is mostly AI generated.
+
 ## Features
 
 - 📋 **6 Bingo Cards** with numbers 1-90 distributed across them
